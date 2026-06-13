@@ -30,9 +30,9 @@ def _(mo):
     Quantum circuits allow us to encode the dynamics of a system and observe different energy regimes. One common usage is this particular scenario when we would know a dynamic but we would like to obtain the state and energy that minimizes it.
 
     $$
-    H|\psi_{\lambda}\rangle = \lambda_0|\psi_{\lambda}\rangle
+    H|\psi_{\lambda_0}\rangle = E_0|\psi_{\lambda_0}\rangle
     $$
-    where $\lambda_0$ is the minimum eigenvalue.
+    where $E_0$ is the minimum eigenvalue.
     """)
     return
 
