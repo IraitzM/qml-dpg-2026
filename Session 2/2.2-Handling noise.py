@@ -2,6 +2,7 @@
 # dependencies = [
 #     "ipython==9.14.1",
 #     "iqm-client[qiskit]==34.0.3",
+#     "iqm-qubit-selector==1.0.3",
 #     "marimo",
 #     "matplotlib==3.11.0",
 #     "mitiq==1.0.0",
