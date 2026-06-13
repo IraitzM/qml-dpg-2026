@@ -29,5 +29,5 @@ Running on hardware using IQM Resonance provided chips Emerald, Garnet and Siriu
 
 **Getting started** First access and submission of circuits to IQM chips.
 
-[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Session%202/2.1-GetRunning%20on%20hardware.py)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IraitzM/qml-dpg-2026/blob/main/Session%202/2.1-GetRunning%20on%20hardware.ipynb)
+[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Session%202/2.1-Running%20on%20hardware.py)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IraitzM/qml-dpg-2026/blob/main/Session%202/2.1-Running%20on%20hardware.ipynb)
