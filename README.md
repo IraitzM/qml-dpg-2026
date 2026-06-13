@@ -16,4 +16,9 @@ All about creating our first implementations for Quantum Computing and understan
 **Observables and derivatives** One of the main aspects of quantum computing is being able to simulate systems. Evolve states and compute expectation values over observables. Quantum circuits can behave similar to neural networks, defining a parameterized function, computing its derivative and finding the right set of parameters minimizing an energy function. 
 
 [![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Session%201/1.2-Going%20variational.py)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IraitzM/qml-dpg-2026/blob/main/Session%201/1.2-Going%20variational.ipynb)  
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IraitzM/qml-dpg-2026/blob/main/Session%201/1.2-Going%20variational.ipynb)
+
+**Quantum Machine Learning** A gentle approach to how Quantum Computing evolved towards Quantum Machine Learning, the main categories for kernel based and neural networks inspired models and the challenges one will face defining those models.
+
+[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Session%201/1.3-QML.py)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IraitzM/qml-dpg-2026/blob/main/Session%201/1.3-QML.ipynb)  
