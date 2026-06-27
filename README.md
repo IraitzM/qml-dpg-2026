@@ -38,3 +38,10 @@ Running on hardware using IQM Resonance provided chips Emerald, Garnet and Siriu
 
 [![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Session%202/2.2-Handling%20noise.py)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IraitzM/qml-dpg-2026/blob/main/Session%202/2.2-Handling%20noise.ipynb)
+
+**QML on hardware** We can combine everything on a single notebook that launches QML workloads against the hardware.
+
+> **Achtung**: Watch for credits to be spent, IQM allows for a limited number of credits. Use https://www.iqmacademy.com/qpu/resourceCalculator/
+
+[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Session%202/2.3-QML%20on%20hardware.py)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IraitzM/qml-dpg-2026/blob/main/Session%202/2.3-QML%20on%20hardware.ipynb)

@@ -1,2 +1,5 @@
 # Data
 data/
+
+# Env variables
+.env
