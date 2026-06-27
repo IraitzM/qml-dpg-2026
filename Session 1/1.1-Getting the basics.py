@@ -162,7 +162,7 @@ def _(array_to_latex):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    With this we will create a two qubit system, apply the Hadamard gate to the first one and the CNOT gate with the conrol over the first qubit as well.
+    With this we will create a two qubit system, apply the Hadamard gate to the first one and the CNOT gate with the control over the first qubit as well.
     """)
     return
 
@@ -301,7 +301,7 @@ def _(Plus):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    This is the expected outcome for the $\langle 0 | \psi \rangle$ operation. But we can mimic it as well.
+    This is the expected outcome for the measurement operation ($|\langle 0 | \psi \rangle|^2$). But we can mimic it as well.
     """)
     return
 
