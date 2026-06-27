@@ -706,7 +706,7 @@ def _():
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Some times we will find devices are not easy to invoke from some open source libraries, but sQUlearn allows us to expand it's _Executor_ class to do so.
+    Sometimes we will find devices are not easy to invoke from some open source libraries, but sQUlearn allows us to expand it's _Executor_ class to do so.
     """)
     return
 
