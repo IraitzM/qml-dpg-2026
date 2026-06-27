@@ -35,7 +35,7 @@ def _(mo):
 
     ![alt](public/image.png)
 
-    This devices offer quite different topologies so make sure you pay attention when exploring those. Let's start by defining a simple circuit to run on such hardware devices.
+    These devices offer quite different topologies so make sure you pay attention when exploring those. Let's start by defining a simple circuit to run on such hardware devices.
     """)
     return
 
