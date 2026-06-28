@@ -762,8 +762,6 @@ def _(Executor):
             Returns:
                 A qiskit job containing the results of the run
             """
-            from iqm.qiskit_iqm import transpile_to_IQM
-
             # Try to import SamplerPub for Qiskit 2.1.2+, but handle older versions gracefully
             try:
                 from qiskit.primitives import SamplerPub
@@ -850,8 +848,6 @@ def _(Executor):
             Returns:
                 A qiskit job containing the results of the run
             """
-            from iqm.qiskit_iqm import transpile_to_IQM
-
             # Try to import EstimatorPub for Qiskit 2.1.2+, but handle older versions gracefully
             try:
                 from qiskit.primitives import EstimatorPub

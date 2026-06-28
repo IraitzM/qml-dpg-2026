@@ -45,3 +45,22 @@ Running on hardware using IQM Resonance provided chips Emerald, Garnet and Siriu
 
 [![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Session%202/2.3-QML%20on%20hardware.py)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IraitzM/qml-dpg-2026/blob/main/Session%202/2.3-QML%20on%20hardware.ipynb)
+
+## Session 3
+
+How can we use Tensor Networks for better AI and QC. Well, let's explore what's available.
+
+**Getting started** Getting familiar with Tensor Networks in Python.
+
+[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Session%203/3.1-Tensor%20networks.py)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IraitzM/qml-dpg-2026/blob/main/Session%203/3.1-Tensor%20networks.ipynb)
+
+**NNs as TNs** AI and QC have a common ground on matrix operations, they both share the need for efficient matrix multiplication. Given that TNs are meant exactly for this what if we could use this formalism for efficient NN construction.
+
+[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Session%203/3.2-Neural%20Netowrks%20as%20TNs.py)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IraitzM/qml-dpg-2026/blob/main/Session%203/3.2-Neural%20Netowrks%20as%20TNs.ipynb)
+
+**QNNs on TNs** Let's bring all together in this final notebook.
+
+[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Session%203/3.3-QML%20on%20TNs.py)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IraitzM/qml-dpg-2026/blob/main/Session%203/3.3-QML%20on%20TNs.ipynb)
