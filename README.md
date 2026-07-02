@@ -2,7 +2,7 @@
 
 This repository holds the exercises for the QML Summer School 2026.
 
-For a gente introduction in this topic, you can find some meaningful information in my [QC Handbook](https://iraitzm.github.io/qc-handbook).
+For a gentle introduction in this topic, you can find some meaningful information in my [QC Handbook](https://iraitzm.github.io/qc-handbook).
 
 ## Session 1
 
