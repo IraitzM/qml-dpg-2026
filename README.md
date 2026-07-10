@@ -50,7 +50,7 @@ Running on hardware using IQM Resonance provided chips Emerald, Garnet and Siriu
 
 How can we use Tensor Networks for better AI and QC. Well, let's explore what's available.
 
-**Getting started** Getting familiar with Tensor Networks in Python.
+**Getting started** Getting familiar with Tensor Networks in Python. In this example we will get to implement some of the theoretical foundations already seen but also get to know how TNs are used in the domain of ML and QML.
 
 [![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Session%203/3.1-Tensor%20networks.py)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IraitzM/qml-dpg-2026/blob/main/Session%203/3.1-Tensor%20networks.ipynb)
@@ -60,7 +60,7 @@ How can we use Tensor Networks for better AI and QC. Well, let's explore what's 
 [![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Session%203/3.2-Neural%20Networks%20as%20TNs.py)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IraitzM/qml-dpg-2026/blob/main/Session%203/3.2-Neural%20Networks%20as%20TNs.ipynb)
 
-**QNNs on TNs** Let's bring all together in this final notebook.
+**QNNs on TNs** Let's bring all together in this final notebook. We will create a hybrid (classical-quantum) neural network running on top of TN simulators making us of all the frameworks and interoperable pieces we have seen up to now.
 
 [![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Session%203/3.3-QML%20on%20TNs.py)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IraitzM/qml-dpg-2026/blob/main/Session%203/3.3-QML%20on%20TNs.ipynb)
