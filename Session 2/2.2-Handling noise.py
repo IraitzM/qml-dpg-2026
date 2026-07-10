@@ -168,11 +168,11 @@ def _(mo):
     mo.md(r"""
     ### Readout Error Mitigation (REM)
 
-    Redout error refers to the systematic error one can observe when measuring a qubit. By default, each qubit has a percentage or errors and those can be caracteried an compensated.
+    Redout error refers to the systematic error one can observe when measuring a qubit. By default, each qubit has a percentage or errors and those can be characterized an compensated.
 
     ![rem](https://mitiq.readthedocs.io/en/latest/_images/rem_workflow.svg)
 
-    [Mitiq](https://mitiq.readthedocs.io/en/stable/#error-mitigation-techniques) is a pretty useful library that will ease the path using these techniques. Depending on where our cirquit landed we would need to retrieve its readout error or flipping probabilities.
+    [Mitiq](https://mitiq.readthedocs.io/en/stable/#error-mitigation-techniques) is a pretty useful library that will ease the path using these techniques. Depending on where our circuit landed we would need to retrieve its readout error or flipping probabilities.
     """)
     return
 
@@ -293,7 +293,7 @@ def _(mo):
     mo.md(r"""
     ## Dynamical Decoupling (DD)
 
-    When qubits are ideling they do accumulate error, so a known technique to mitigate this is to apply operations that do contradict one another. Even though the effect of applying to consecutive XX gates is none, the fact that operations are happening in those idling qubits while waiting reduces the amount or error being accumulated.
+    When qubits are idling they do accumulate error, so a known technique to mitigate this is to apply operations that do contradict one another. Even though the effect of applying to consecutive XX gates is none, the fact that operations are happening in those idling qubits while waiting reduces the amount or error being accumulated.
 
     IQM Pulla is IQM's pulse level compiler. One thing we did not mention before is that gates also do not exists. These are simply discretized analog operations over the hardware. Thus, one can access the actual schedule a circuit encodes at such low-level regime.
     """)
@@ -398,7 +398,7 @@ def _(
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    There are additional techniques worth coverting:
+    There are additional techniques worth covering:
 
     * **Zero Noise Extrapolation (ZNE)** that amplifies noise in order to understand the trend and thus extrapolate to zero noise expectation values.
     * **Probabilistic error cancellation (PEC)** that uses a set of noise gates as linear combinations to construct ideal noiseless gates.

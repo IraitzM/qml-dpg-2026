@@ -272,7 +272,7 @@ def _(Plus):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Qiskit tends to understand everything in terms of circuits. But in essence we can request the actual operation being performed there and check that the Hadamard action over a $|0\rangle$ state (the initial state) provides the $|+\rangle$ state as expected.
+    Qiskit tends to understand everything in terms of circuits. But in essence we can request the actual operation being performed there and check that the Hadamard action over a $|0\rangle$ state (the initial state) produces the $|+\rangle$ state as expected.
     """)
     return
 
@@ -286,7 +286,9 @@ def _(Plus, array_to_latex):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    What would be the outcome of it?
+    What would be the outcome of it? Depends on the measurement operator to be used. Generally, $Z$ basis is the measurement basis we will use and therefore its basis vectors are $|0\rangle$ and $|1\rangle$.
+
+    In our case, we would like ot project the state over the $|0\rangle$ basis state and get the probability of it.
     """)
     return
 
@@ -437,7 +439,7 @@ def _(QuantumCircuit):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Most likelly moving forward, this pictorical approach will ease the abstraction but is good to know that, the formalism is still there.
+    Most likely moving forward, this graphic approach will ease the abstraction but is good to know that, the formalism is still there.
     """)
     return
 

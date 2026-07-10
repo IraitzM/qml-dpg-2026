@@ -189,7 +189,7 @@ def _(mo):
     Every NN uses two functions in particular:
 
     * **Forward pass**: Given a set of inputs, performs the forward pass multiplying by the weights and producing the final outcome, label.
-    * **Backward pass**: Defines how far from the ideal label we are and projects this error backwards to correct the weigths and thus learn minimizing the *loss* function.
+    * **Backward pass**: Defines how far from the ideal label we are and projects this error backwards to correct the weights and thus learn minimizing the *loss* function.
     """)
     return
 

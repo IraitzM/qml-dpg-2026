@@ -67,7 +67,7 @@ def _(mo):
     \langle Y(a) | X | Y(a) \rangle = \sin(\pi a)
     $$
 
-    One way is to explore it analytically but we can also check numerically the results by runing the circuit and also the actual calculation of the $\sin$ function.
+    One way is to explore it analytically but we can also check numerically the results by running the circuit and also the actual calculation of the $\sin$ function.
     """)
     return
 
@@ -232,7 +232,7 @@ def _(H, params, qcirc):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    We can do the same thing using other frameworks. Frameworks that can handle those derivative caltulations in different ways, perhaps more efficient for when we will perform local simulations and we know we can keep this information in memory...
+    We can do the same thing using other frameworks. Frameworks that can handle those derivative calculations in different ways, perhaps more efficient for when we will perform local simulations and we know we can keep this information in memory...
     """)
     return
 

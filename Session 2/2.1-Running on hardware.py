@@ -73,7 +73,7 @@ def _(circuit):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Cool! Now let's see what we get when runing on a real hardware. For that we will first need to connect to IQM service using their library and an authentication TOKEN that allows the notebook to impersonate me.
+    Cool! Now let's see what we get when running on a real hardware. For that we will first need to connect to IQM service using their library and an authentication TOKEN that allows the notebook to impersonate me.
     """)
     return
 
@@ -176,7 +176,7 @@ def _(backend, circuit):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    We can see here some of the differences between the proposed theoretical and actual circuit runing on the device.
+    We can see here some of the differences between the proposed theoretical and actual circuit running on the device.
     """)
     return
 

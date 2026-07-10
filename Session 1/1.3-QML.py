@@ -218,7 +218,7 @@ def _(X_train, fmap):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    What is this ComputeUncompute class? It creates when in machine learning is know as the **kernel trick**. This trick allos us to use a function as a measure of distance in a higher dimensional state. So, given two samples grom our dataset we could obtain
+    What is this ComputeUncompute class? It creates when in machine learning is know as the **kernel trick**. This trick allows us to use a function as a measure of distance in a higher dimensional state. So, given two samples from our dataset we could obtain
 
     $$
     K(x_i, x_j) \ge 0
@@ -230,7 +230,7 @@ def _(mo):
     $$
     K(x_i, x_j) = \langle\psi(x_i)|\psi(x_j)\rangle = \langle 0 |\Psi^{\dagger}(x)|\Psi(x_j)|0\rangle
     $$
-    so that $\Psi$ is the function describing our quantum cirucit and its conjugate pefforms the operation backwards. This produces a **compute - uncompute** dynamic returning $|0\rangle$ state when operations being performed are the same in parameterized actions in both cases. When measuring fidelity as outcome, this scale is inverted 1 meaning a complete overlap for the expected outcome $|0\rangle$.
+    so that $\Psi$ is the function describing our quantum circuit and its conjugate performs the operation backwards. This produces a **compute - uncompute** dynamic returning $|0\rangle$ state when operations being performed are the same in parameterized actions in both cases. When measuring fidelity as outcome, this scale is inverted 1 meaning a complete overlap for the expected outcome $|0\rangle$.
 
     This is the key to [Quantum Support Vector Classifiers](https://iraitzm.github.io/qc-handbook/parts/qml/kernels.html#quantum-kernel)
     """)
@@ -246,7 +246,7 @@ def _(X_train, kernel):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Thus, we know that samples 0 and 1 from our dataset produce quantum states that overlap just 0.35, meaning they are quite ditant in that quantum feature space without the need of observing the actual states they produce.
+    Thus, we know that samples 0 and 1 from our dataset produce quantum states that overlap just 0.35, meaning they are quite distant in that quantum feature space without the need of observing the actual states they produce.
     """)
     return
 
@@ -256,7 +256,7 @@ def _(mo):
     mo.md(r"""
     ## Quantum Support Vector Classifier
 
-    We now can use this concept of distance trying to obatin a classical model that can create hyperplanes so that this data becomes more separable.
+    We now can use this concept of distance trying to obtain a classical model that can create hyperplanes so that this data becomes more separable.
     """)
     return
 
@@ -275,7 +275,7 @@ def _(X_test, X_train, kernel, y_test, y_train):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Perfect score, meaning our model can perfectly distinguish between 0 and 1 labeled samples. Well, the original information was already separable enough, don't you think? Let's try witha  harder example.
+    Perfect score, meaning our model can perfectly distinguish between 0 and 1 labeled samples. Well, the original information was already separable enough, don't you think? Let's try with a harder example.
     """)
     return
 
@@ -367,7 +367,7 @@ def _(mo):
     mo.md(r"""
     ## Quantum Neural Networks
 
-    QNN's take it one step further, considering we already embbed the data and maybe we could define something like an open anstaz and find the right set of parameters so that the circuit itself produces a classification over the sample being encoded. This removes the need to compare a given sample against a set of support samples, reducing the amount of execution during inference.
+    QNN's take it one step further, considering we already embed the data and maybe we could define something like an open ansatz and find the right set of parameters so that the circuit itself produces a classification over the sample being encoded. This removes the need to compare a given sample against a set of support samples, reducing the amount of execution during inference.
     """)
     return
 
