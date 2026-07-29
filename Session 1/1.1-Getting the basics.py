@@ -370,7 +370,7 @@ def _(mo):
     Let play around with the Bell state we produced before
 
     $$
-    CNOT (I\otimes H)|00\rangle = |\Phi^{+}\rangle = \frac{1}{\sqrt{2}}(|00\rangle + |11\rangle
+    CNOT (I\otimes H)|00\rangle = |\Phi^{+}\rangle = \frac{1}{\sqrt{2}}(|00\rangle + |11\rangle)
     $$
     """)
     return

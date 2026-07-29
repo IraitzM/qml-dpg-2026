@@ -7,13 +7,14 @@
 #     "pylatexenc==2.10",
 #     "qiskit==2.4.2",
 #     "qiskit-algorithms==0.4.0",
+#     "torch==2.13.0",
 # ]
 # requires-python = ">=3.12"
 # ///
 
 import marimo
 
-__generated_with = "0.23.9"
+__generated_with = "0.23.15"
 app = marimo.App(width="medium")
 
 
@@ -61,7 +62,7 @@ def _():
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    This is a simple rotation over the Y axis of the bloch sphere. So we know that if we measure the observable X of a given state produced by this rotation we get:
+    This is a simple rotation over the $Y$ axis of the bloch sphere. So we know that if we measure the observable $X$ of a given state produced by this rotation we get:
 
     $$
     \langle Y(a) | X | Y(a) \rangle = \sin(\pi a)
@@ -135,7 +136,7 @@ def _(check_value):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    One common objetvie when performing a simulation is, for example to find the right set of parameters that produce a given observable outcome.
+    One common objective when performing a simulation is, for example, to find the right set of parameters that produce a given observable outcome.
     """)
     return
 
@@ -282,6 +283,132 @@ def _(mo):
     mo.md(r"""
     Much more convenient and simpler to use... Checkout: https://docs.pennylane.ai/en/stable/introduction/interfaces.html
     """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    # Exercise
+
+    Try implementing this simplified version of the Transverse Ising Hamiltonian minimization you can find [in here](https://pennylane.ai/demos/tutorial_isingmodel_PyTorch). This code tries to minimize the energy of a system
+
+    $$
+    H = -\sum_{(i,j)}J_{i,j}\sigma_i,\sigma_j
+    $$
+
+    and we will use the [Rot](https://docs.pennylane.ai/en/stable/code/api/pennylane.Rot.html) gate to create our ansatz / circuit.
+    """)
+    return
+
+
+@app.cell
+def _(qml):
+    import torch
+    from torch.autograd import Variable
+
+    ex_dev = qml.device("default.qubit", wires=3)
+
+    @qml.qnode(ex_dev, interface="torch")
+    def exercise_circ(p0, p1, p2):
+        # We use the general Rot(phi,theta,omega,wires) single-qubit operation
+        qml.Rot(p0[0], p0[1], p0[2], wires=0)
+        qml.Rot(p1[0], p1[1], p1[2], wires=1)
+        qml.Rot(p2[0], p2[1], p2[2], wires=2)
+        return [qml.expval(qml.PauliZ(i)) for i in range(3)]
+
+    def cost(var0, var1, var2):
+        # Hamiltonian Energy (H)
+        # > the circuit function returns a numpy array of Pauli-Z expectation values
+        spins = exercise_circ(var0, var1, var2)
+
+        # the expectation value of Pauli-Z is +1 for spin up and -1 for spin down
+        energy = -(1 * spins[0] * spins[1]) - (-1 * spins[1] * spins[2])
+        return energy
+
+    return Variable, cost, exercise_circ, torch
+
+
+@app.cell
+def _(Variable, cost, exercise_circ, np, qml, torch):
+    torch.manual_seed(56)
+    p0 = Variable((np.pi * torch.rand(3, dtype=torch.float64)), requires_grad=True)
+    p1 = Variable((np.pi * torch.rand(3, dtype=torch.float64)), requires_grad=True)
+    p2 = Variable((np.pi * torch.rand(3, dtype=torch.float64)), requires_grad=True)
+
+    var_init = [p0, p1, p2]
+    cost_init = cost(p0, p1, p2)
+
+    print(f"Initial energy: {cost_init}")
+    qml.drawer.use_style("pennylane")
+    qml.draw_mpl(exercise_circ)(p0, p1, p2)
+    return cost_init, p0, p1, p2, var_init
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    Can you guess the best parameters? Open a new cell with the following code and tweak the params trying to guess the right values:
+
+    ```py
+    cost([0.1, 0.2, 1.5], [0.4, 0.5, 0.6], [1.0, 2.5, 2.5])
+
+    ```
+    """)
+    return
+
+
+@app.cell
+def _(cost):
+    cost([0.1, 0.2, 1.5], [0.4, 0.5, 0.6], [1.0, 2.5, 2.5])
+    return
+
+
+@app.cell
+def _(cost, cost_init, p0, p1, p2, torch, var_init):
+    opt = torch.optim.SGD(var_init, lr=0.1)
+
+    def closure():
+        opt.zero_grad()
+        loss = cost(p0, p1, p2)
+        loss.backward()
+        return loss
+
+    var_pt = [var_init]
+    cost_pt = [cost_init]
+    x = [0]
+
+    for i in range(100):
+        opt.step(closure)
+        if (i + 1) % 5 == 0:
+            x.append(i)
+            p0n, p1n, p2n = opt.param_groups[0]["params"]
+            costn = cost(p0n, p1n, p2n)
+            var_pt.append([p0n, p1n, p2n])
+            cost_pt.append(costn)
+    return cost_pt, opt, x
+
+
+@app.cell
+def _(cost, opt):
+    my_params = opt.param_groups[0]["params"]
+    print(cost(*my_params))
+    return
+
+
+@app.cell
+def _(cost_pt, torch, x):
+    import matplotlib.pyplot as plt
+
+    fig = plt.figure(figsize=(6, 4))
+
+    # Enable processing the Torch trainable tensors
+    with torch.no_grad():
+        plt.plot(x, cost_pt, label = 'global minimum')
+        plt.xlabel("Optimization steps")
+        plt.ylabel("Cost / Energy")
+        plt.legend()
+        plt.show()
     return
 
 

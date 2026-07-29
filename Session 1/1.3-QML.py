@@ -14,7 +14,7 @@
 
 import marimo
 
-__generated_with = "0.23.9"
+__generated_with = "0.23.15"
 app = marimo.App(width="medium")
 
 
@@ -132,9 +132,7 @@ def _(mo):
 @app.cell
 def _():
     import matplotlib.pyplot as plt
-    from mpl_toolkits.mplot3d import Axes3D
     from sklearn import datasets
-    from sklearn.decomposition import PCA
 
     # import some data to play with
     iris = datasets.load_iris()
@@ -246,7 +244,7 @@ def _(X_train, kernel):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Thus, we know that samples 0 and 1 from our dataset produce quantum states that overlap just 0.35, meaning they are quite distant in that quantum feature space without the need of observing the actual states they produce.
+    Thus, we know that samples 0 and 1 from our dataset produce quantum states that overlap just ~0.32, meaning they are quite distant in that quantum feature space without the need of observing the actual states they produce.
     """)
     return
 
