@@ -1,8 +1,8 @@
 # /// script
 # dependencies = [
 #     "ipython==9.14.1",
-#     "iqm-client[qiskit]==34.0.3",
-#     "iqm-qubit-selector==1.0.3",
+#     "iqm-client[qiskit]==35.0.1",
+#     "iqm-qubit-selector==1.1.1",
 #     "marimo",
 #     "matplotlib==3.11.0",
 #     "mitiq==1.0.0",
@@ -86,9 +86,19 @@ def _():
 def _(mo):
     mo.md(r"""
     By inspecting the chip we can see that the quality of the qubits is not homogeneous. There might be better results depending which qubit pair you select.
+    """)
+    return
 
-    ![garnet](public/image_1.png)
 
+@app.cell(hide_code=True)
+def _(mo):
+    mo.image(src="./Session 2/public/image_1.png")
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     Thus, a qubit selection may be worth.
 
     ## Qubit selection
@@ -151,7 +161,6 @@ def _(hw_job, hw_optim_job, plot_histogram):
     counts_hw_optim = hw_optim_job.result().get_counts()
 
     plot_histogram([counts_hw, counts_hw_optim], legend=["Random layout", "Min. cost layout"])
-
     return (counts_hw_optim,)
 
 

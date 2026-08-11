@@ -12,7 +12,7 @@
 
 import marimo
 
-__generated_with = "0.23.11"
+__generated_with = "0.23.9"
 app = marimo.App(width="medium")
 
 
@@ -28,7 +28,7 @@ def _(mo):
     mo.md(r"""
     Neural networks have captured the media by storm in particular since the irruption of Large Language Models, humongous neural networks able to autorregresively propose the most likely word in a sentence.
 
-    [Detailes view](https://bbycroft.net/llm)
+    [Detailed view](https://bbycroft.net/llm)
 
     But, in essence this are nothing but matrix multiplications where we would need to find the right values for each cell (weights).
     """)

@@ -33,10 +33,14 @@ def _(mo):
 
     [IQM Resonance](https://iqm.tech/products/iqm-resonance/) is the cloud based access to IQM's devices (Emerald, Garnet and Sirius)
 
-    ![alt](public/image.png)
-
     These devices offer quite different topologies so make sure you pay attention when exploring those. Let's start by defining a simple circuit to run on such hardware devices.
     """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.image(src="./Session 2/public/image.png")
     return
 
 
