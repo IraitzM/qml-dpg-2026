@@ -4,6 +4,8 @@ This repository holds the exercises for the QML Summer School 2026.
 
 For a gentle introduction in this topic, you can find some meaningful information in my [QC Handbook](https://iraitzm.github.io/qc-handbook).
 
+![qr](qr_code.svg)
+
 ## Session 1
 
 All about creating our first implementations for Quantum Computing and understanding key concepts around Quantum Machine Learning.
