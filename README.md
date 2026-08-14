@@ -6,6 +6,10 @@ For a gentle introduction in this topic, you can find some meaningful informatio
 
 ![qr](qr_code.svg)
 
+> **New here?** [**Getting started**](GETTING_STARTED.md) walks through cloning the repo,
+> setting up the environment with `uv`, running the notebooks with `marimo`, and
+> registering in IQM Resonance. Or just click any badge below to run in the browser.
+
 ## Session 1
 
 All about creating our first implementations for Quantum Computing and understanding key concepts around Quantum Machine Learning.
