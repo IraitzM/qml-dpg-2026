@@ -544,7 +544,6 @@ def _(Statevector, exec_qc, plot_bloch_multivector):
     psi_exec  = Statevector.from_instruction(exec_qc)
 
     plot_bloch_multivector(psi_exec)
-
     return (psi_exec,)
 
 
@@ -555,9 +554,9 @@ def _(plot_state_qsphere, psi_exec):
 
 
 @app.cell
-def _(QuantumCircuit, circuit, exec_qc, plot_histogram, simulator):
+def _(QuantumCircuit, exec_qc, plot_histogram, simulator):
     exec_circ = QuantumCircuit(2, 2)
-    exec_circ = circuit.compose(exec_qc)
+    exec_circ = exec_circ.compose(exec_qc)
     exec_circ.measure([0,1],[0,1])
 
     exec_result = simulator.run(exec_circ, shots=1000).result()

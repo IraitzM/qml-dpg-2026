@@ -3,3 +3,6 @@ data/
 
 # Env variables
 .env
+
+# Marimo cache
+__marimo__
