@@ -12,7 +12,7 @@
 
 import marimo
 
-__generated_with = "0.23.11"
+__generated_with = "0.23.16"
 app = marimo.App(width="medium")
 
 
@@ -247,8 +247,12 @@ def _(mo):
     mo.md(r"""
     ## Tensor contraction and decomposition
 
-    Matrix-matrix and matrix-vector multiplications are familiar operations within the context of quantum computing. We can now study these operations through the lens of the tensor notation introduced above. To define tensor networks, it is important to first understand tensor contraction. Two or more tensors can be contracted by summing over repeated indices. In diagrammatic notation, the repeated indices appear as lines connecting tensors, as in the figure below. We see two tensors of rank two connected by one repeated index, The dimension of the repeated index is called the bond dimension.
+    Matrix-matrix and matrix-vector multiplications are familiar operations within the context of quantum computing. We can now study these operations through the lens of the tensor notation introduced above. To define tensor networks, it is important to first understand tensor contraction. Two or more tensors can be contracted by summing over repeated indices. In diagrammatic notation, the repeated indices appear as lines connecting tensors, as in the figure below. We see two tensors of rank two connected by one repeated index, The dimension of the repeated index is called the **bond dimension**.
 
+    #### Why is bond dimension important?
+    The bond dimension does not only determine how much information a tensor network can represent. It also determines how large the tensors are and therefore how expensive contractions become. Increasing $\chi$ gives the network more expressive power, but comes at a computational cost.
+
+    ### Contraction
     The contraction of the tensors in the above example is equivalent to the standard matrix multiplication formula and can be expressed as
 
     $$
@@ -268,6 +272,14 @@ def _(mo):
     return
 
 
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    Considering the above example: $C = AB$.
+    """)
+    return
+
+
 @app.cell
 def _(qtn):
     ta = qtn.rand_tensor([2, 3], inds=["a", "x"], tags="A")
@@ -281,9 +293,17 @@ def _(qtn):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
+    For example, if the shared index $k$ has dimension 4, each element of C requires a sum over 4 values. If $k$ has dimension 100, it requires a sum over 100 values. Therefore, the **bond dimension directly affects the amount of computation required for the contraction**.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     ## Matrix Product States
 
-    An MPS represents a many-body quantum state as a chain of tensors — one per site. Instead of storing all $2^N$ amplitudes of an $N$-qubit state, you store $N$ small tensors connected by shared "bond" indices. The full state is recovered by contracting the chain.
+    An MPS represents a many-body quantum state as a chain of tensors, one per site. Instead of storing all $2^N$ amplitudes of an $N$-qubit state, you store $N$ small tensors connected by shared "bond" indices. The full state is recovered by contracting the chain.
 
     Formally, for a system of $N$ sites each with local dimension $d$ (e.g. $d=2$ for qubits):
 
@@ -291,7 +311,11 @@ def _(mo):
 
     Each $A^{\sigma_i}[i]$ is a matrix (or rank-3 tensor with indices: left-bond, physical, right-bond). The chain of matrix multiplications gives a scalar for each basis state.
 
-    **Bond dimension** $\chi$ is the size of the shared index between adjacent tensors. It controls how much entanglement the MPS can represent. A bond of dimension $\chi$ means the matrices are $\chi \times \chi$ — so the total memory scales as $O(N d \chi^2)$ instead of $O(d^N)$.
+    **Bond dimension** $\chi$ is the size of the shared index between adjacent tensors. It controls how much entanglement the MPS can represent. A bond of dimension $\chi$ means the matrices are $\chi \times \chi$, so the total memory scales as $O(N d \chi^2)$ instead of $O(d^N)$.
+
+    Why does $\chi^2$ appear? A typical bulk MPS tensor has two bond indices, each of dimension $\chi$, and one physical index of dimension $d$. Therefore, it contains approximately $d\chi^2$ parameters.
+
+    This means that increasing $\chi$ from 4 to 8 does not simply double the tensor size. Since the dependence is quadratic, it increases the number of parameters by a factor of 4.
     """)
     return
 
@@ -408,6 +432,60 @@ def _(circ):
 @app.cell
 def _(circ):
     circ.contract().draw(["T0", "T1", "T2", "T3"], figsize=(4, 4))
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    The important point is that tensor-network algorithms are not simply about performing contractions. We want to perform them without creating unnecessarily large intermediate tensors. The bond dimension $\chi$ and the order in which tensors are contracted both strongly affect the amount of memory and computation required.
+
+    ## Contraction order?
+
+    So far, we have seen that the bond dimension affects the cost of a contraction. There is another important factor: **the order in which we perform the contractions**.
+
+    Consider three tensors:
+
+    $$
+    A_{i,k}\, B_{k,l}\, C_{l,j}
+    $$
+
+    We can contract them in two different ways:
+
+    $$
+    (A B) C
+    $$
+
+    or
+
+    $$
+    A (B C).
+    $$
+
+    Both give exactly the same final result, but they can create intermediate tensors of very different sizes.
+
+    This is similar to multiplying matrices: the order of matrix multiplications can change the amount of work required, even though the final result is the same.
+
+    > **Key idea:** In tensor networks, a good contraction order tries to keep intermediate tensors as small as possible.
+    """)
+    return
+
+
+@app.cell
+def _(np):
+    # Imagine matrices with these dimensions:
+    A = np.random.rand(100, 10)
+    B = np.random.rand(10, 1000)
+    C = np.random.rand(1000, 10)
+
+    # Option 1: (A B) C
+    intermediate_1 = A.shape[0] * B.shape[1]
+
+    # Option 2: A (B C)
+    intermediate_2 = B.shape[0] * C.shape[1]
+
+    print("Intermediate size for (A B) C:", intermediate_1)
+    print("Intermediate size for A (B C):", intermediate_2)
     return
 
 
