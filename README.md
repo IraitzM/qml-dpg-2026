@@ -9,6 +9,9 @@ For a gentle introduction in this topic, you can find some meaningful informatio
 > **New here?** [**Getting started**](GETTING_STARTED.md) walks through cloning the repo,
 > setting up the environment with `uv`, running the notebooks with `marimo`, and
 > registering in IQM Resonance. Or just click any badge below to run in the browser.
+>
+> Prefer plain `pip`, e.g. on Windows or a machine without an NVIDIA GPU? Use the
+> [`requirements.txt` setup](GETTING_STARTED.md#alternative-pip-and-requirementstxt) instead. But make sure you use Python>=3.12.
 
 ## Session 1
 

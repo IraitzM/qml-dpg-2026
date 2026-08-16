@@ -6,6 +6,7 @@ If you would rather not install anything, every notebook has an **Open in molab*
 
 - [1. Clone the repository](#1-clone-the-repository)
 - [2. Set up the environment with uv](#2-set-up-the-environment-with-uv)
+  - [Alternative: pip and requirements.txt](#alternative-pip-and-requirementstxt)
 - [3. Run the notebooks with marimo](#3-run-the-notebooks-with-marimo)
 - [4. Register in IQM Resonance](#4-register-in-iqm-resonance)
 - [Troubleshooting](#troubleshooting)
@@ -84,6 +85,43 @@ Useful commands:
 | `uv remove <package>` | Drop a dependency |
 | `uv lock --upgrade` | Re-resolve to newer versions, then `uv sync` |
 | `uv tree` | Show the dependency tree |
+
+### Alternative: pip and requirements.txt
+
+Don't want to install `uv`? The repo root also has a `requirements.txt`, exported straight from `uv.lock` (`uv export --no-hashes -o requirements.txt`), so it pins the exact same versions.
+
+**Windows (PowerShell)**
+
+```powershell
+py -3.12 -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+```
+
+If `py -3.12` isn't found, install Python 3.12 from [python.org](https://www.python.org/downloads/) (check "Add python.exe to PATH" during setup) or via `winget install Python.Python.3.12`.
+If PowerShell blocks the activation script with an execution-policy error, run `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` first, or activate with `.venv\Scripts\activate.bat` from `cmd.exe` instead.
+
+**macOS / Linux**
+
+```bash
+python3.12 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+Once activated, run commands directly (no `uv run` prefix needed):
+
+```bash
+marimo edit
+```
+
+> **Non-GPU devices:** `requirements.txt` marks the CUDA-only packages (`pennylane-lightning-gpu`, `pennylane-lightning-tensor`, and the `nvidia-*` / `cuda-*` wheels) with `sys_platform == 'linux'` environment markers, mirroring `pyproject.toml`. `pip` evaluates those markers and skips the packages automatically on Windows, macOS, or a Linux box without an NVIDIA GPU, no manual edits needed. The notebooks fall back to the CPU `lightning.qubit` device.
+
+If you add or update dependencies with `uv`, regenerate the file so it stays in sync:
+
+```bash
+uv export --no-hashes -o requirements.txt
+```
 
 ## 3. Run the notebooks with marimo
 
@@ -204,6 +242,10 @@ until the circuit is correct, and only then switch the backend to hardware.
 
 **`uv sync` fails on `pennylane-lightning-gpu`**: that wheel expects a CUDA-capable machine. On a laptop without an NVIDIA GPU, drop it: `uv remove pennylane-lightning-gpu`.
 The notebooks fall back to the CPU `lightning.qubit` device.
+
+**`pip install -r requirements.txt` fails on a CUDA/`nvidia-*` package**: this shouldn't happen on Windows or macOS since those lines carry a `sys_platform == 'linux'` marker that `pip` skips automatically. If it does happen on a GPU-less Linux box, open `requirements.txt` and delete the offending lines `pennylane-lightning-gpu`,`pennylane-lightning-tensor`, and any `nvidia-*` / `cuda-*` entries), then re-run `pip install -r requirements.txt`.
+
+**`'python' is not recognized` / `py` not found (Windows)**: Python isn't on `PATH`, or only the Microsoft Store stub is installed. Install from [python.org](https://www.python.org/downloads/) with "Add python.exe to PATH" checked, then open a new PowerShell window.
 
 **`marimo: command not found`**: you are outside the environment. Use `uv run marimo …` or activate `.venv` first.
 
