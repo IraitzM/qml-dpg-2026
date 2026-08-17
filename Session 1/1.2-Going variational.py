@@ -291,13 +291,13 @@ def _(mo):
     mo.md(r"""
     # Exercise
 
-    Try implementing this simplified version of the Transverse Ising Hamiltonian minimization you can find [in here](https://pennylane.ai/demos/tutorial_isingmodel_PyTorch). This code tries to minimize the energy of a system
+    Try implementing this simplified version of the (classical, non-transverse) Ising Hamiltonian minimization you can find [in here](https://pennylane.ai/demos/tutorial_isingmodel_PyTorch). This code tries to minimize the energy of a system
 
     $$
-    H = -\sum_{(i,j)}J_{i,j}\sigma_i,\sigma_j
+    H = -\sum_{\langle i,j \rangle}J_{i,j}\sigma^z_i\sigma^z_j
     $$
 
-    and we will use the [Rot](https://docs.pennylane.ai/en/stable/code/api/pennylane.Rot.html) gate to create our ansatz / circuit.
+    with $J_{0,1}=1$ (ferromagnetic) and $J_{1,2}=-1$ (antiferromagnetic), so the two couplings compete and the ground state is not simply "all spins aligned". Note there is no $\sigma^x$ field term here, so this isn't actually a *transverse* Ising model, the Hamiltonian is diagonal in the computational basis, which is also why an unentangled, per-qubit ansatz (no two-qubit gates) is enough to reach the ground state. We will use the [Rot](https://docs.pennylane.ai/en/stable/code/api/pennylane.Rot.html) gate to create our ansatz / circuit.
     """)
     return
 
@@ -323,7 +323,8 @@ def _(qml):
         spins = exercise_circ(var0, var1, var2)
 
         # the expectation value of Pauli-Z is +1 for spin up and -1 for spin down
-        energy = -(1 * spins[0] * spins[1]) - (-1 * spins[1] * spins[2])
+        # J_01 = 1 (ferromagnetic), J_12 = -1 (antiferromagnetic) -> competing terms
+        energy = (-1 * spins[0] * spins[1]) + (1 * spins[1] * spins[2])
         return energy
 
     return Variable, cost, exercise_circ, torch

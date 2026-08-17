@@ -59,6 +59,8 @@ Running on hardware using IQM Resonance provided chips Emerald, Garnet and Siriu
 
 How can we use Tensor Networks for better AI and QC. Well, let's explore what's available.
 
+> ITensor CQL 2025 workshop slides and tutorials available as well in https://itensor.org/school/ 
+
 **Getting started** Getting familiar with Tensor Networks in Python. In this example we will get to implement some of the theoretical foundations already seen but also get to know how TNs are used in the domain of ML and QML.
 
 [![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Session%203/3.1-Tensor%20networks.py)
