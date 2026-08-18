@@ -81,4 +81,4 @@ How can we use Tensor Networks for better AI and QC. Well, let's explore what's 
 As the Summer School progresses we would like to offer some challenges, so under the **Extra** folder, you will find some marimo notebooks for you to exercise the concepts seen during the lectures.
 
 ### Boolean penalty Hamiltonian
-[![Open in molab](https://marimo.io/molab-shield.svg)](https://github.com/IraitzM/qml-dpg-2026/blob/main/Extra/boolean_penalty_hamiltonians_exercise.py)
+[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Extra/boolean_penalty_hamiltonians_exercise.py)
