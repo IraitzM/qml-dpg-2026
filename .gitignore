@@ -6,3 +6,5 @@ data/
 
 # Marimo cache
 __marimo__
+
+__pycache__

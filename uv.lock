@@ -2512,6 +2512,29 @@ wheels = [
 ]
 
 [[package]]
+name = "pygraphviz"
+version = "2.0.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/08/44/efd880d59b94ef3b8c881a4c8ddcaa6f30036997b0ae94710c6f32aaa24c/pygraphviz-2.0.1.tar.gz", hash = "sha256:6f9850617f9444517641d2e14dfdb99ae8294cf7657be86c031fee8f7c54f863", size = 81998, upload-time = "2026-07-20T09:59:35.444Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/b6/ba/e140a189f55ed2f400ab1582ba27ec15eb7325538d35354d0eb858dfb97f/pygraphviz-2.0.1-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:9df0588e2db8356eeadcec55edb1cd32cc642dd8b0b0ebfe169bf0567e6cd31a", size = 1412494, upload-time = "2026-07-20T09:59:11.817Z" },
+    { url = "https://files.pythonhosted.org/packages/4a/3d/3e6f2f970742289acf09f123f07a8f1168bf5ad61dca3025e678d31c4434/pygraphviz-2.0.1-cp312-cp312-macosx_11_0_x86_64.whl", hash = "sha256:a8b6283075874bf4553081180e59e72470b43c59da5fd7530e9bc4f04a648d51", size = 1584971, upload-time = "2026-07-20T09:59:13.737Z" },
+    { url = "https://files.pythonhosted.org/packages/fa/ff/94293746355f27cb8675fb442de52da1bb79e07fca07ebb06be7b397d1e1/pygraphviz-2.0.1-cp312-cp312-manylinux_2_28_aarch64.whl", hash = "sha256:afb25def99ac094e7b733e9913071217ffc0b3d739ee72e2f3b465241ea64224", size = 5136518, upload-time = "2026-07-20T09:59:15.279Z" },
+    { url = "https://files.pythonhosted.org/packages/4c/a4/18cb081de99c495b0270399124da2f23b7f77471ca93d9651297d169f035/pygraphviz-2.0.1-cp312-cp312-manylinux_2_28_x86_64.whl", hash = "sha256:62c3d76165b283cf70a220de0e22889baee56f8fa3403590840d9eb841f627d2", size = 5362205, upload-time = "2026-07-20T09:59:16.955Z" },
+    { url = "https://files.pythonhosted.org/packages/8d/2d/082fdd9b0b2c87a8da0cb280caa68e36808d424fe24a6f47d6928af28049/pygraphviz-2.0.1-cp312-cp312-win_amd64.whl", hash = "sha256:55d40e8362e5096b9d02f35007caab3246da4a14b72abaf131281dcac24c3dfa", size = 6842560, upload-time = "2026-07-20T09:59:18.466Z" },
+    { url = "https://files.pythonhosted.org/packages/a5/0d/35cd48c3ab3494b92f64629df173fb3e12b814d86fcc43c9ff39ec0410c6/pygraphviz-2.0.1-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:a393abac0af2f427698f98873b19631abf6311aba8eb90a01764c0904d1c842b", size = 1412167, upload-time = "2026-07-20T09:59:20.143Z" },
+    { url = "https://files.pythonhosted.org/packages/ff/ee/44b0e01d38c0b5fc727ad30b5e55bc2d3cfb0ece2b7c1696003efbc0e7f8/pygraphviz-2.0.1-cp313-cp313-macosx_11_0_x86_64.whl", hash = "sha256:76802fe84d687e842371e27ff68a3d8015055cf4f3b141ae635ac05b1f7cccd2", size = 1584696, upload-time = "2026-07-20T09:59:21.567Z" },
+    { url = "https://files.pythonhosted.org/packages/f7/8e/5ea7c33e0d6ecf6a08166a77da94d1058fa178eac7d73eeab2d4417bb8c3/pygraphviz-2.0.1-cp313-cp313-manylinux_2_28_aarch64.whl", hash = "sha256:5367adcae805c8adbc4f2f0f0f63ba51810674077ca8acf3255f71ce107287cd", size = 5134392, upload-time = "2026-07-20T09:59:23.013Z" },
+    { url = "https://files.pythonhosted.org/packages/39/aa/2acddf77d9527c40ac2429114198afc0fca39821b059713ea6953816d733/pygraphviz-2.0.1-cp313-cp313-manylinux_2_28_x86_64.whl", hash = "sha256:bca869f7894fe95cc33db210e7420bce67a3535a9329cb258856977a808350d9", size = 5360045, upload-time = "2026-07-20T09:59:24.544Z" },
+    { url = "https://files.pythonhosted.org/packages/23/cd/98a3c1e70bc56455fc14c808db7d38e388f4e772ad38e8dbdb51eca7590e/pygraphviz-2.0.1-cp313-cp313-win_amd64.whl", hash = "sha256:721d9d46c1167d9044a00063374b9e34ebca637dab858b523da38e95188b666e", size = 6842392, upload-time = "2026-07-20T09:59:26.18Z" },
+    { url = "https://files.pythonhosted.org/packages/2f/ae/24d1c0984fbb1c2f6231db7e031f7ed22420235575a93f489fc19b143797/pygraphviz-2.0.1-cp314-cp314-macosx_11_0_arm64.whl", hash = "sha256:2969794de5128a5d5d2f9213d92ebdc724c60ffccae683c0b4141d1e4b160d78", size = 1412189, upload-time = "2026-07-20T09:59:27.702Z" },
+    { url = "https://files.pythonhosted.org/packages/5f/85/d1e3c3817e22ae6caaf119b8cecd579b3bcd7718a9fef4176779a1648dd6/pygraphviz-2.0.1-cp314-cp314-macosx_11_0_x86_64.whl", hash = "sha256:fad64151a38dfd3eaf3ab01e3e9d193ab4e7c60cc8e7bc00f6a338e00f69a5d9", size = 1584772, upload-time = "2026-07-20T09:59:29.189Z" },
+    { url = "https://files.pythonhosted.org/packages/bc/cf/b22dac556161adf1b90d87c2474eb4259df0f52a7d74f5b6c50b0faf4275/pygraphviz-2.0.1-cp314-cp314-manylinux_2_28_aarch64.whl", hash = "sha256:19092a42b570e579231d6c897476aed8d24b6c0b5a966d4d50ccb470c9778fe8", size = 5133963, upload-time = "2026-07-20T09:59:30.568Z" },
+    { url = "https://files.pythonhosted.org/packages/78/d3/9a728b882805db71eb687fe8440df7b2912800856d4619ffe79b1824fe10/pygraphviz-2.0.1-cp314-cp314-manylinux_2_28_x86_64.whl", hash = "sha256:71b13cfacb5ed6e4f5a966bf679e1d383ac70e0274cc74b29ce4b8e7e2709b46", size = 5359616, upload-time = "2026-07-20T09:59:32.24Z" },
+    { url = "https://files.pythonhosted.org/packages/f3/7e/e2e90c36770fc7830c1eae81c91c653bbb41cc69c5e9b0af7ae0590f9cc2/pygraphviz-2.0.1-cp314-cp314-win_amd64.whl", hash = "sha256:8f3a37f5abf0873396243634f30f46dcae118a585cbef13554dd3eed0f9c67e0", size = 7063195, upload-time = "2026-07-20T09:59:33.825Z" },
+]
+
+[[package]]
 name = "pyjwt"
 version = "2.13.0"
 source = { registry = "https://pypi.org/simple" }
@@ -2862,6 +2885,7 @@ dependencies = [
     { name = "pennylane-lightning" },
     { name = "pennylane-lightning-gpu", marker = "sys_platform == 'linux'" },
     { name = "pennylane-lightning-tensor", marker = "sys_platform == 'linux'" },
+    { name = "pygraphviz" },
     { name = "pylatexenc" },
     { name = "qiskit" },
     { name = "qiskit-aer" },
@@ -2889,6 +2913,7 @@ requires-dist = [
     { name = "pennylane-lightning", specifier = "==0.45.0" },
     { name = "pennylane-lightning-gpu", marker = "sys_platform == 'linux'", specifier = "==0.45.0" },
     { name = "pennylane-lightning-tensor", marker = "sys_platform == 'linux'", specifier = "==0.45.0" },
+    { name = "pygraphviz", specifier = ">=2.0.1" },
     { name = "pylatexenc", specifier = "==2.10" },
     { name = "qiskit", specifier = "==2.1.2" },
     { name = "qiskit-aer", specifier = ">=0.17.2" },

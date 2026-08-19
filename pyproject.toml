@@ -26,4 +26,5 @@ dependencies = [
     "mitiq==1.0.0",
     "numpy==2.2.6",
     "squlearn>=0.11.2",
+    "pygraphviz>=2.0.1",
 ]

@@ -82,3 +82,12 @@ As the Summer School progresses we would like to offer some challenges, so under
 
 ### Boolean penalty Hamiltonian
 [![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Extra/boolean_penalty_hamiltonians_exercise.py)
+
+### T-doped circuits
+[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Extra/t_doped_exercise.py)
+
+### Tensor exercises
+[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Extra/tensor_networks_exercise.py)
+
+### TN for QML
+[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Extra/tn_for_qml_exercise.py)
