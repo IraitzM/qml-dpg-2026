@@ -26,11 +26,11 @@ def _():
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Neural networks have captured the media by storm in particular since the irruption of Large Language Models, humongous neural networks able to autorregresively propose the most likely word in a sentence.
+    Neural networks have captured the media by storm in particular since the irruption of Large Language Models, humongous neural networks able to autoregressively propose the most likely word in a sentence.
 
     [Detailed view](https://bbycroft.net/llm)
 
-    But, in essence this are nothing but matrix multiplications where we would need to find the right values for each cell (weights).
+    But, in essence these are nothing but matrix multiplications where we would need to find the right values for each cell (weights).
     """)
     return
 
@@ -52,7 +52,7 @@ def _():
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    We will replace our fancy Neural Network by  a TN structure that essentially will perform the same actions: find the set of values that stablish the relationship between entry data and its label. Thus, *learning* the relationship between those.
+    We will replace our fancy Neural Network by a TN structure that essentially will perform the same actions: find the set of values that establish the relationship between entry data and its label. Thus, *learning* the relationship between those.
 
     Allow us to define a set of parameters for the whole setup.
     """)
@@ -349,7 +349,7 @@ def _(X_te, X_tr, params, train, y_te, y_tr):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    We could also analyze how the bond dimension affects the learning, but more importantly how much we might be willing to sacrifice in favor of computationa, efficiency.
+    We could also analyze how the bond dimension affects the learning, but more importantly how much we might be willing to sacrifice in favor of computational efficiency.
     """)
     return
 

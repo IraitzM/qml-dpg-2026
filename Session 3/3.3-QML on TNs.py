@@ -77,7 +77,7 @@ def _(X):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    In order to make it easier we will focus only in two classes: $0$ and $8$.
+    In order to make it easier we will focus only on two classes: $0$ and $8$.
     """)
     return
 
@@ -140,7 +140,7 @@ def _(mo):
     mo.md(r"""
     Depending on the encoding we select, the size of the challenge may be quite difficult to handle on our devices. Lucky for us the people at Xanadu, IBM and other labs have spent some time implementing variants of classical simulators implementing GPU and TN execution backends that should help ease the task at hand.
 
-    * Pennylane's Lighning plugins [Lightning plugins](https://docs.pennylane.ai/projects/lightning/en/stable/)
+    * Pennylane's [Lightning plugins](https://docs.pennylane.ai/projects/lightning/en/stable/)
     * Qiskit Aer with its GPU and MPS simulators
 
     And sQUlearn supports most of them through their [Executor](https://squlearn.github.io/user_guide/executor.html) class.
@@ -201,7 +201,7 @@ def _(X_test_1, clf, y_test):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    We could check if GPU's might be of help when training a circuit that requires gradient computation...
+    We could check if GPUs might be of help when training a circuit that requires gradient computation...
     """)
     return
 
@@ -262,7 +262,7 @@ def _(mo):
     * Pennylane implements _default.tensor_ device on top of quimb
     * Quimb provides proficient TN simulation
 
-    Although we might need for those three to align as they do not currently support it. Let's see how would go do if we wanted to build it ourselves... We know we can compose a circuit that runs using TNs for simulation tasks.
+    Although we might need those three to align as they do not currently support it. Let's see how it would go if we wanted to build it ourselves... We know we can compose a circuit that runs using TNs for simulation tasks.
     """)
     return
 
@@ -287,7 +287,7 @@ def _(qml):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    We can take some inspiration from their tutorials on Hyrbid Neural Networks (classical and quantum layers): https://pennylane.ai/demos/tutorial_qnn_module_torch
+    We can take some inspiration from their tutorials on Hybrid Neural Networks (classical and quantum layers): https://pennylane.ai/demos/tutorial_qnn_module_torch
     """)
     return
 
@@ -457,7 +457,7 @@ def _(X_test_1, qml, qnn):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    By a simple change of device we can try wiht a tensor network simulation...
+    By a simple change of device we can try with a tensor network simulation...
     """)
     return
 
@@ -485,11 +485,11 @@ def _(
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Such variation between training and test accuracy is one of the common issues with ML models, overfitting that also adds to some of the second most coommon issues related to QNN models, vanishing gradients and barren plateaus.
+    Such variation between training and test accuracy is one of the common issues with ML models, overfitting that also adds to some of the second most common issues related to QNN models, vanishing gradients and barren plateaus.
 
-    We will need to improve our selection in order to prevent those issues but there is no nice path other than trying and reverse engineering why some of the things we changed workded.
+    We will need to improve our selection in order to prevent those issues but there is no nice path other than trying and reverse engineering why some of the things we changed worked.
 
-    Also, simulator of choice will depend on how GPU intensive or paralellized the process might be so we will need to get familiarized with all combinations of:
+    Also, simulator of choice will depend on how GPU intensive or parallelized the process might be so we will need to get familiarized with all combinations of:
 
     1. Model of choice
     2. Parameterization
