@@ -81,13 +81,21 @@ How can we use Tensor Networks for better AI and QC. Well, let's explore what's 
 As the Summer School progresses we would like to offer some challenges, so under the **Extra** folder, you will find some marimo notebooks for you to exercise the concepts seen during the lectures.
 
 ### Boolean penalty Hamiltonian
+Build Boolean-logic penalty gadgets (AND, then OR by De Morgan), substitute Pauli operators for Boolean variables to turn a QUBO into an Ising Hamiltonian, tune a penalty weight against a competing objective, and simulate with Qiskit circuits to see which bitstring actually wins.
+
 [![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Extra/boolean_penalty_hamiltonians_exercise.py)
 
 ### T-doped circuits
+Measure why classical simulation cost tracks a circuit's T-count rather than its qubit or gate count: build T-doped circuits, implement the Bravyi–Gosset stabilizer-rank bound as a formula, and run circuits through Aer's `extended_stabilizer` method to watch the wall-clock cost climb with T-count.
+
 [![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Extra/t_doped_exercise.py)
 
 ### Tensor exercises
+Contract two tensors by hand and check it against `quimb`, count how many parameters an MPS actually stores as a function of bond dimension $\chi$, decompose a single-qubit unitary into Pauli rotations, and simulate a small circuit as an MPS to read off a measurement probability.
+
 [![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Extra/tensor_networks_exercise.py)
 
 ### TN for QML
+Implement the single contraction step that *is* an MPS classifier's forward pass, confirm that `default.tensor` is a drop-in replacement for a statevector device on the exact same circuit, and see directly how much entanglement a fixed bond dimension can (and can't) hold, from a GHZ state up to a maximally-entangled one.
+
 [![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Extra/tn_for_qml_exercise.py)
