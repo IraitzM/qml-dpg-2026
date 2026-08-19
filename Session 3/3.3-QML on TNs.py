@@ -30,8 +30,21 @@ def _():
 
 @app.cell(hide_code=True)
 def _():
+    import logging
     import warnings
+
+    # Only show warning messages
+    logging.basicConfig(level=logging.WARNING, force=True)
     warnings.filterwarnings('ignore')
+
+    # sQUlearn's Executor hardcodes its own "executor" logger to INFO on every
+    # instantiation (see squlearn/util/executor.py), so basicConfig's root
+    # WARNING level above doesn't touch it: a logger's own level decides
+    # whether a record is created at all, before propagation to root's
+    # handler even happens. Turning off propagation here, once, survives
+    # every later `Executor(...)` call since squlearn never touches
+    # `.propagate`, only `.setLevel`.
+    logging.getLogger("executor").propagate = False
     return
 
 
