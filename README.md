@@ -4,8 +4,6 @@ This repository holds the exercises for the QML Summer School 2026.
 
 For a gentle introduction in this topic, you can find some meaningful information in my [QC Handbook](https://iraitzm.github.io/qc-handbook).
 
-![qr](qr_code.svg)
-
 > **New here?** [**Getting started**](GETTING_STARTED.md) walks through cloning the repo,
 > setting up the environment with `uv`, running the notebooks with `marimo`, and
 > registering in IQM Resonance. Or just click any badge below to run in the browser.
