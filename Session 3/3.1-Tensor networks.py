@@ -28,7 +28,7 @@ def _(mo):
     mo.md(r"""
     # Tensors
 
-    Tensors are multi-dimensional arrays of numbers. Intuitively, they can be interpreted as a generalization of scalars, vectors, and matrices. Tensors can be described by their rank, indices and the dimension of the indices. The rank is the number of indices in a tensor — a scalar has rank zero, a vector has rank one, and a matrix has rank two. The dimension of an index is the number of values that index can take. For example, a vector with three elements has one index that can take three values. This is vector is therefore a rank one tensor and its index has dimension three.
+    Tensors are multi-dimensional arrays of numbers. Intuitively, they can be interpreted as a generalization of scalars, vectors, and matrices. Tensors can be described by their rank, indices and the dimension of the indices. The rank is the number of indices in a tensor — a scalar has rank zero, a vector has rank one, and a matrix has rank two. The dimension of an index is the number of values that index can take. For example, a vector with three elements has one index that can take three values. This vector is therefore a rank one tensor and its index has dimension three.
     """)
     return
 
@@ -63,7 +63,7 @@ def _(np, tensor_rank2):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Picturing graphically this tensors will help us down the road on some concepts related to the operations we will perform with those. Let's take a tensor describing a quantum state $|\psi\rangle$.
+    Picturing graphically these tensors will help us down the road on some concepts related to the operations we will perform with those. Let's take a tensor describing a quantum state $|\psi\rangle$.
 
     Let's make this state the $|\Psi^{-}\rangle$ bell state
 
@@ -127,7 +127,7 @@ def _(qtn, qu):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    And connect this two indices to a state we would like to project to.
+    And connect these two indices to a state we would like to project to.
 
     $$
     \langle \Psi^{-}|YX|\Psi^{-}\rangle
@@ -247,7 +247,7 @@ def _(mo):
     mo.md(r"""
     ## Tensor contraction and decomposition
 
-    Matrix-matrix and matrix-vector multiplications are familiar operations within the context of quantum computing. We can now study these operations through the lens of the tensor notation introduced above. To define tensor networks, it is important to first understand tensor contraction. Two or more tensors can be contracted by summing over repeated indices. In diagrammatic notation, the repeated indices appear as lines connecting tensors, as in the figure below. We see two tensors of rank two connected by one repeated index, The dimension of the repeated index is called the **bond dimension**.
+    Matrix-matrix and matrix-vector multiplications are familiar operations within the context of quantum computing. We can now study these operations through the lens of the tensor notation introduced above. To define tensor networks, it is important to first understand tensor contraction. Two or more tensors can be contracted by summing over repeated indices. In diagrammatic notation, the repeated indices appear as lines connecting tensors, as in the figure below. We see two tensors of rank two connected by one repeated index. The dimension of the repeated index is called the **bond dimension**.
 
     #### Why is bond dimension important?
     The bond dimension does not only determine how much information a tensor network can represent. It also determines how large the tensors are and therefore how expensive contractions become. Increasing $\chi$ gives the network more expressive power, but comes at a computational cost.
@@ -359,7 +359,7 @@ def _(psi_prod):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ### Week entanglement
+    ### Weak entanglement
     """)
     return
 

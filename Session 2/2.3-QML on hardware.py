@@ -26,6 +26,24 @@ def _():
 
 
 @app.cell(hide_code=True)
+def _():
+    import logging
+
+    # Only show warning messages
+    logging.basicConfig(level=logging.WARNING, force=True)
+
+    # sQUlearn's Executor hardcodes its own "executor" logger to INFO on every
+    # instantiation (see squlearn/util/executor.py), so basicConfig's root
+    # WARNING level above doesn't touch it: a logger's own level decides
+    # whether a record is created at all, before propagation to root's
+    # handler even happens. Turning off propagation here, once, survives
+    # every later `Executor(...)` call since squlearn never touches
+    # `.propagate`, only `.setLevel`.
+    logging.getLogger("executor").propagate = False
+    return
+
+
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
     There is a great library for QML that can actually run on various backends. [sQUlearn](https://squlearn.github.io/index.html) is build by colleagues at Fraunhofer and aims to provide a significant abstraction layer so that it becomes easy to move from emulation to hardware.

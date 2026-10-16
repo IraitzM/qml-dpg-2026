@@ -9,6 +9,9 @@ For a gentle introduction in this topic, you can find some meaningful informatio
 > **New here?** [**Getting started**](GETTING_STARTED.md) walks through cloning the repo,
 > setting up the environment with `uv`, running the notebooks with `marimo`, and
 > registering in IBM Quantum Platform. Or just click any badge below to run in the browser.
+>
+> Prefer plain `pip`, e.g. on Windows or a machine without an NVIDIA GPU? Use the
+> [`requirements.txt` setup](GETTING_STARTED.md#alternative-pip-and-requirementstxt) instead. But make sure you use Python>=3.12.
 
 ## Session 1
 
@@ -53,6 +56,8 @@ Running on hardware using the IBM Quantum Platform Open Plan and its Heron proce
 ## Session 3
 
 How can we use Tensor Networks for better AI and QC. Well, let's explore what's available.
+
+> ITensor CQL 2025 workshop slides and tutorials available as well in https://itensor.org/school/ 
 
 **Getting started** Getting familiar with Tensor Networks in Python. In this example we will get to implement some of the theoretical foundations already seen but also get to know how TNs are used in the domain of ML and QML.
 
