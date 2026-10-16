@@ -3,3 +3,8 @@ data/
 
 # Env variables
 .env
+
+# Marimo cache
+__marimo__
+
+__pycache__

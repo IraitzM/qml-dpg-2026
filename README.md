@@ -1,4 +1,4 @@
-# QML DLP Summer School 2026
+# QML DPG Summer School 2026
 
 This repository holds the exercises for the QML Summer School 2026.
 
@@ -7,6 +7,9 @@ For a gentle introduction in this topic, you can find some meaningful informatio
 > **New here?** [**Getting started**](GETTING_STARTED.md) walks through cloning the repo,
 > setting up the environment with `uv`, running the notebooks with `marimo`, and
 > registering in IQM Resonance. Or just click any badge below to run in the browser.
+>
+> Prefer plain `pip`, e.g. on Windows or a machine without an NVIDIA GPU? Use the
+> [`requirements.txt` setup](GETTING_STARTED.md#alternative-pip-and-requirementstxt) instead. But make sure you use Python>=3.12.
 
 ## Session 1
 
@@ -54,6 +57,8 @@ Running on hardware using IQM Resonance provided chips Emerald, Garnet and Siriu
 
 How can we use Tensor Networks for better AI and QC. Well, let's explore what's available.
 
+> ITensor CQL 2025 workshop slides and tutorials available as well in https://itensor.org/school/ 
+
 **Getting started** Getting familiar with Tensor Networks in Python. In this example we will get to implement some of the theoretical foundations already seen but also get to know how TNs are used in the domain of ML and QML.
 
 [![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Session%203/3.1-Tensor%20networks.py)
@@ -68,3 +73,27 @@ How can we use Tensor Networks for better AI and QC. Well, let's explore what's 
 
 [![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Session%203/3.3-QML%20on%20TNs.py)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IraitzM/qml-dpg-2026/blob/main/Session%203/3.3-QML%20on%20TNs.ipynb)
+
+## Extra
+
+As the Summer School progresses we would like to offer some challenges, so under the **Extra** folder, you will find some marimo notebooks for you to exercise the concepts seen during the lectures.
+
+### Boolean penalty Hamiltonian
+Build Boolean-logic penalty gadgets (AND, then OR by De Morgan), substitute Pauli operators for Boolean variables to turn a QUBO into an Ising Hamiltonian, tune a penalty weight against a competing objective, and simulate with Qiskit circuits to see which bitstring actually wins.
+
+[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Extra/boolean_penalty_hamiltonians_exercise.py)
+
+### T-doped circuits
+Measure why classical simulation cost tracks a circuit's T-count rather than its qubit or gate count: build T-doped circuits, implement the Bravyi–Gosset stabilizer-rank bound as a formula, and run circuits through Aer's `extended_stabilizer` method to watch the wall-clock cost climb with T-count.
+
+[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Extra/t_doped_exercise.py)
+
+### Tensor exercises
+Contract two tensors by hand and check it against `quimb`, count how many parameters an MPS actually stores as a function of bond dimension $\chi$, decompose a single-qubit unitary into Pauli rotations, and simulate a small circuit as an MPS to read off a measurement probability.
+
+[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Extra/tensor_networks_exercise.py)
+
+### TN for QML
+Implement the single contraction step that *is* an MPS classifier's forward pass, confirm that `default.tensor` is a drop-in replacement for a statevector device on the exact same circuit, and see directly how much entanglement a fixed bond dimension can (and can't) hold, from a GHZ state up to a maximally-entangled one.
+
+[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Extra/tn_for_qml_exercise.py)

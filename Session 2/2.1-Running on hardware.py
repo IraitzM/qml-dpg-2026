@@ -40,7 +40,7 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.image(src="./Session 2/public/image.png")
+    mo.image(src="https://github.com/IraitzM/qml-dpg-2026/blob/main/Session%202/public/image.png?raw=true")
     return
 
 
