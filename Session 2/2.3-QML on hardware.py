@@ -1,12 +1,12 @@
 # /// script
 # requires-python = ">=3.12"
 # dependencies = [
-#     "iqm-client[qiskit]==34.0.3",
 #     "marimo>=0.23.9",
 #     "matplotlib==3.11.0",
 #     "numpy==2.4.6",
 #     "pylatexenc==2.10",
 #     "qiskit==2.1.2",
+#     "qiskit-ibm-runtime==0.45.1",
 #     "scikit-learn==1.9.0",
 #     "squlearn==0.11.2",
 # ]
@@ -581,7 +581,7 @@ def _(X_test, X_train):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    We might want to try again with the Iris dataset just not to run out of credits. In fact, we might need to use just a set of samples from it.
+    We might want to try again with the Iris dataset just not to run out of QPU time. In fact, we might need to use just a set of samples from it.
     """)
     return
 
@@ -636,7 +636,8 @@ def _(MinMaxScaler, iris_X, iris_Y, np, train_test_split):
     # Scale
     _scaler = MinMaxScaler((-0.9, 0.9))
     X_train_scl = _scaler.fit_transform(X_train_hard)
-    X_test_scl = _scaler.transform(X_test_hard)
+    # With so few samples test points can fall outside the range, and the encoding uses arccos(x)
+    X_test_scl = np.clip(_scaler.transform(X_test_hard), -0.9, 0.9)
     return X_test_scl, X_train_scl, y_test_hard, y_train_hard
 
 
@@ -676,29 +677,45 @@ def _(X_test_scl, X_train_scl):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Now we need to submit it to IQM...
+    Now we need to submit it to IBM. As in the previous notebooks, set `USE_FAKE = True` to run against a local noisy copy of an IBM device first.
     """)
     return
 
 
 @app.cell
 def _():
-    import os
-    from getpass import getpass
-
-    os.environ["IQM_TOKEN"] = getpass("Here goes your IQM API token:")
-    return
+    # True runs everything on a local noisy copy of an IBM device
+    USE_FAKE = False
+    return (USE_FAKE,)
 
 
 @app.cell
-def _():
-    from iqm.qiskit_iqm import IQMProvider
+def _(USE_FAKE):
+    import os
+    from getpass import getpass
 
-    IQM_URL = "https://resonance.meetiqm.com/"
-    QUANTUM_COMPUTER = "emerald"
+    if not USE_FAKE and "QISKIT_IBM_TOKEN" not in os.environ:
+        os.environ["QISKIT_IBM_TOKEN"] = getpass("Here goes your IBM Quantum API key:")
+        os.environ["QISKIT_IBM_INSTANCE"] = getpass("And your instance CRN (leave it empty to use any of yours):")
+    return (os,)
 
-    provider = IQMProvider(IQM_URL, quantum_computer=QUANTUM_COMPUTER)
-    backend = provider.get_backend()
+
+@app.cell
+def _(USE_FAKE, os):
+    from qiskit_ibm_runtime import QiskitRuntimeService
+    from qiskit_ibm_runtime.fake_provider import FakeFez
+
+    if USE_FAKE:
+        backend = FakeFez()
+    else:
+        service = QiskitRuntimeService(
+            channel="ibm_quantum_platform",
+            token=os.environ["QISKIT_IBM_TOKEN"],
+            instance=os.environ.get("QISKIT_IBM_INSTANCE") or None,
+        )
+        # The device with the shortest queue, or pick one by name with service.backend("ibm_fez")
+        backend = service.least_busy(operational=True, simulator=False)
+
     print(f"Connected to : {backend.name}")
     return (backend,)
 
@@ -706,279 +723,77 @@ def _():
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Sometimes we will find devices are not easy to invoke from some open source libraries, but sQUlearn allows us to expand it's _Executor_ class to do so.
+    sQUlearn knows how to talk to IBM devices out of the box: its _Executor_ takes care of transpiling the circuits for the device, submitting them and caching the results.
+
+    There is one catch. By default the Executor opens a Qiskit Runtime **Session**, which reserves the device for us between jobs, and sessions are not available on the Open Plan. Instead we hand it a **Batch**, which groups our jobs together without holding the device.
     """)
     return
 
 
 @app.cell
-def _(Executor):
-    from iqm.qiskit_iqm import transpile_to_IQM
+def _(Executor, USE_FAKE, backend):
+    from qiskit_ibm_runtime import Batch
 
-    class IQMExecutor(Executor):
-        """
-        Executor for IQM hardware with fixed transpilation method.
-        This executor overrides both sampler_run_v2 and estimator_run_v2 methods to ensure
-        circuits are properly transpiled for IQM hardware before execution.
-
-        The executor provides seamless integration with IQM quantum computers while
-        maintaining all squlearn features like caching, session management, and
-        automatic job retries.
-        """
-
-        def __init__(
-            self,
-            backend,
-            shots=1000,
-            caching=True,
-            cache_dir="./cache",
-            **kwargs,
-        ):
-            # Store backend and shots before calling super()
-            self.iqm_backend = backend
-            self._shots = shots
-
-            # Call parent constructor
-            super().__init__(
-                execution=backend,
-                shots=shots,
-                caching=caching,
-                cache_dir=cache_dir,
-                **kwargs,
-            )
-
-            # Ensure backend is accessible via standard attribute
-            self._backend = backend
-
-        def sampler_run_v2(self, pubs, **kwargs):
-            """
-            Override the sampler_run_v2 method to pre-transpile circuits using IQM transpiler.
-            This ensures all circuits are properly transpiled for IQM hardware before execution.
-
-            Args:
-                pubs: Iterable of pub-like objects (circuits to execute)
-                **kwargs: Additional arguments passed to the sampler
-
-            Returns:
-                A qiskit job containing the results of the run
-            """
-            # Try to import SamplerPub for Qiskit 2.1.2+, but handle older versions gracefully
-            try:
-                from qiskit.primitives import SamplerPub
-                has_sampler_pub = True
-            except ImportError:
-                has_sampler_pub = False
-                SamplerPub = None
-
-            # Convert pubs to list to process them
-            pubs_list = list(pubs)
-            transpiled_pubs = []
-
-            for pub in pubs_list:
-                # Handle SamplerPub objects if available (Qiskit 2.1.2+)
-                if has_sampler_pub and isinstance(pub, SamplerPub):
-                    # Extract the circuit from the SamplerPub
-                    circuit = pub.circuit
-                    parameter_values = pub.parameter_values
-                    shots = pub.shots if pub.shots is not None else self._shots
-
-                    try:
-                        # Transpile circuit for IQM hardware
-                        transpiled_circuit = transpile_to_IQM(circuit, backend=self.iqm_backend)
-
-                        # Create a new SamplerPub with the transpiled circuit
-                        transpiled_pub = SamplerPub(
-                            circuit=transpiled_circuit,
-                            parameter_values=parameter_values,
-                            shots=shots
-                        )
-                        transpiled_pubs.append(transpiled_pub)
-
-                    except Exception as e:
-                        print(f"Warning: Failed to transpile circuit: {e}")
-                        print("Falling back to original circuit")
-                        # Use the original pub if transpilation fails
-                        transpiled_pubs.append(pub)
-                else:
-                    # Handle tuple formats (works for all Qiskit versions)
-                    # Examples from Qiskit 2.1.2 docs:
-                    # (circuit,)
-                    # (circuit, parameter_values)
-                    # (circuit, parameter_values, shots)
-                    if isinstance(pub, tuple) and len(pub) > 0:
-                        circuit = pub[0] if len(pub) > 0 else None
-                        if circuit is not None:
-                            try:
-                                # Transpile circuit for IQM hardware
-                                transpiled_circuit = transpile_to_IQM(circuit, backend=self.iqm_backend)
-
-                                # Reconstruct the pub tuple with transpiled circuit
-                                if len(pub) == 1:
-                                    transpiled_pubs.append((transpiled_circuit,))
-                                elif len(pub) == 2:
-                                    transpiled_pubs.append((transpiled_circuit, pub[1]))
-                                elif len(pub) == 3:
-                                    transpiled_pubs.append((transpiled_circuit, pub[1], pub[2]))
-                                else:
-                                    transpiled_pubs.append(pub)
-
-                            except Exception as e:
-                                print(f"Warning: Failed to transpile circuit: {e}")
-                                print("Falling back to original circuit")
-                                transpiled_pubs.append(pub)
-                        else:
-                            transpiled_pubs.append(pub)
-                    else:
-                        # Handle other formats (e.g., plain QuantumCircuit)
-                        transpiled_pubs.append(pub)
-
-            # Call the parent class method with transpiled circuits
-            return super().sampler_run_v2(transpiled_pubs, **kwargs)
-
-        def estimator_run_v2(self, pubs, precision=None, **kwargs):
-            """
-            Override the estimator_run_v2 method to pre-transpile circuits using IQM transpiler.
-            This ensures all circuits are properly transpiled for IQM hardware before execution.
-
-            Args:
-                pubs: Iterable of pub-like objects (circuits and observables to execute)
-                precision: Target precision for expectation value estimates
-                **kwargs: Additional arguments passed to the estimator
-
-            Returns:
-                A qiskit job containing the results of the run
-            """
-            # Try to import EstimatorPub for Qiskit 2.1.2+, but handle older versions gracefully
-            try:
-                from qiskit.primitives import EstimatorPub
-                has_estimator_pub = True
-            except ImportError:
-                has_estimator_pub = False
-                EstimatorPub = None
-
-            # Convert pubs to list to process them
-            pubs_list = list(pubs)
-            transpiled_pubs = []
-
-            for pub in pubs_list:
-                # Handle EstimatorPub objects if available (Qiskit 2.1.2+)
-                if has_estimator_pub and isinstance(pub, EstimatorPub):
-                    # Extract the circuit and observables from the EstimatorPub
-                    circuit = pub.circuit
-                    observables = pub.observables
-                    parameter_values = pub.parameter_values
-
-                    try:
-                        # Transpile circuit for IQM hardware
-                        transpiled_circuit = transpile_to_IQM(circuit, backend=self.iqm_backend)
-
-                        # Create a new EstimatorPub with the transpiled circuit
-                        transpiled_pub = EstimatorPub(
-                            circuit=transpiled_circuit,
-                            observables=observables,
-                            parameter_values=parameter_values,
-                            precision=precision if precision is not None else pub.precision
-                        )
-                        transpiled_pubs.append(transpiled_pub)
-
-                    except Exception as e:
-                        print(f"Warning: Failed to transpile circuit for estimator: {e}")
-                        print("Falling back to original circuit")
-                        # Use the original pub if transpilation fails
-                        transpiled_pubs.append(pub)
-                else:
-                    # For other pub formats (tuples), try to handle them
-                    if isinstance(pub, tuple) and len(pub) > 0:
-                        circuit = pub[0] if len(pub) > 0 else None
-                        if circuit is not None:
-                            try:
-                                # Transpile circuit for IQM hardware
-                                transpiled_circuit = transpile_to_IQM(circuit, backend=self.iqm_backend)
-
-                                # Reconstruct the pub tuple with transpiled circuit
-                                if len(pub) == 1:
-                                    transpiled_pubs.append((transpiled_circuit,))
-                                elif len(pub) == 2:
-                                    transpiled_pubs.append((transpiled_circuit, pub[1]))
-                                elif len(pub) == 3:
-                                    transpiled_pubs.append((transpiled_circuit, pub[1], pub[2]))
-                                elif len(pub) == 4:
-                                    transpiled_pubs.append((transpiled_circuit, pub[1], pub[2], pub[3]))
-                                else:
-                                    transpiled_pubs.append(pub)
-
-                            except Exception as e:
-                                print(f"Warning: Failed to transpile circuit for estimator: {e}")
-                                print("Falling back to original circuit")
-                                transpiled_pubs.append(pub)
-                        else:
-                            transpiled_pubs.append(pub)
-                    else:
-                        transpiled_pubs.append(pub)
-
-            # Call the parent class method with transpiled circuits
-            return super().estimator_run_v2(transpiled_pubs, precision=precision, **kwargs)
-
-    return (IQMExecutor,)
+    if USE_FAKE:
+        hw_executor = Executor(backend, shots=1000)
+    else:
+        hw_executor = Executor(Batch(backend=backend), shots=1000)
+    return (hw_executor,)
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Now we simply instantiate the _IQMExecutor_ class and let sQUlearn handle the rest.
+    Now we simply plug the executor into the kernel and let sQUlearn handle the rest.
     """)
     return
 
 
 @app.cell
 def _(
-    IQMExecutor,
     ProjectedQuantumKernel,
     X_train_scl,
-    backend,
     encoding_circuit,
+    hw_executor,
     np,
 ):
-    # Create IQM executor with the fixed transpilation approach
-    iqm_executor = IQMExecutor(backend=backend)
-
-    kernel_iqm = ProjectedQuantumKernel(
+    kernel_hw = ProjectedQuantumKernel(
         encoding_circuit,
-        executor=iqm_executor,
+        executor=hw_executor,
         initial_parameters=np.random.rand(encoding_circuit.num_parameters)
     )
 
-    kernel_iqm.evaluate(X_train_scl, X_train_scl)
-    return (kernel_iqm,)
+    kernel_hw.evaluate(X_train_scl, X_train_scl)
+    return (kernel_hw,)
 
 
 @app.cell
-def _(QSVC, X_train_scl, kernel_iqm, y_train_hard):
-    qsvc_iqm = QSVC(quantum_kernel=kernel_iqm)
-    qsvc_iqm.fit(X_train_scl, y_train_hard)
-    return (qsvc_iqm,)
+def _(QSVC, X_train_scl, kernel_hw, y_train_hard):
+    qsvc_hw = QSVC(quantum_kernel=kernel_hw)
+    qsvc_hw.fit(X_train_scl, y_train_hard)
+    return (qsvc_hw,)
 
 
 @app.cell
-def _(X_test_scl, qsvc_iqm, y_test_hard):
-    print(f"The score on the test set is {qsvc_iqm.score(X_test_scl, y_test_hard)}")
+def _(X_test_scl, qsvc_hw, y_test_hard):
+    print(f"The score on the test set is {qsvc_hw.score(X_test_scl, y_test_hard)}")
     return
 
 
 @app.cell
-def _(X_test_scl, X_train_scl, kernel_iqm):
+def _(X_test_scl, X_train_scl, kernel_hw):
     # Compute the kernel matrices
-    train_matrix = kernel_iqm.evaluate(x=X_train_scl)
-    test_matrix = kernel_iqm.evaluate(x=X_test_scl, y=X_train_scl)
+    train_matrix = kernel_hw.evaluate(x=X_train_scl)
+    test_matrix = kernel_hw.evaluate(x=X_test_scl, y=X_train_scl)
     return test_matrix, train_matrix
 
 
 @app.cell
 def _(SVC, test_matrix, train_matrix, y_test_hard, y_train_hard):
-    q_svc_iqm = SVC(kernel="precomputed")
-    q_svc_iqm.fit(train_matrix, y_train_hard)
+    q_svc_hw = SVC(kernel="precomputed")
+    q_svc_hw.fit(train_matrix, y_train_hard)
 
-    score_q_svc_hw = q_svc_iqm.score(test_matrix, y_test_hard)
+    score_q_svc_hw = q_svc_hw.score(test_matrix, y_test_hard)
 
     print(f"Precomputed kernel classification test score: {score_q_svc_hw}")
     return
@@ -987,8 +802,17 @@ def _(SVC, test_matrix, train_matrix, y_test_hard, y_train_hard):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    Increasing the numbers will increase significantly the number of evaluations required and thus the number os credtis being spent.
+    Increasing the numbers will increase significantly the number of evaluations required and thus the QPU time being spent. Keep in mind the Open Plan gives you 10 minutes every 28 days, and every job adds some overhead on top of the circuit execution itself.
+
+    Once we are done, we close the batch so no more jobs get attached to it.
     """)
+    return
+
+
+@app.cell
+def _(USE_FAKE, hw_executor):
+    if not USE_FAKE:
+        hw_executor.close_session()
     return
 
 

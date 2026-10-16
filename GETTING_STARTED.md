@@ -7,7 +7,7 @@ If you would rather not install anything, every notebook has an **Open in molab*
 - [1. Clone the repository](#1-clone-the-repository)
 - [2. Set up the environment with uv](#2-set-up-the-environment-with-uv)
 - [3. Run the notebooks with marimo](#3-run-the-notebooks-with-marimo)
-- [4. Register in IQM Resonance](#4-register-in-iqm-resonance)
+- [4. Register in IBM Quantum Platform](#4-register-in-ibm-quantum-platform)
 - [Troubleshooting](#troubleshooting)
 
 ## 1. Clone the repository
@@ -15,9 +15,11 @@ If you would rather not install anything, every notebook has an **Open in molab*
 You need [git](https://git-scm.com/downloads) installed.
 
 ```bash
-git clone https://github.com/IraitzM/qml-dpg-2026.git
+git clone -b variant/ibm https://github.com/IraitzM/qml-dpg-2026.git
 cd qml-dpg-2026
 ```
+
+This is the IBM flavour of the workshop, it lives in the `variant/ibm` branch. The `main` branch runs Session 2 on IQM hardware instead.
 
 If you plan to keep your own changes, fork the repository on GitHub first and clone your fork instead, that way you can commit and push freely.
 
@@ -127,78 +129,99 @@ uv run marimo run "Session 1/1.3-QML.py"
 
 ![marimo run](images/marimo-run.png)
 
-## 4. Register in IQM Resonance
+## 4. Register in IBM Quantum Platform
 
-[IQM Resonance](https://www.iqm.tech/products/iqm-resonance) is the cloud service that gives access to IQM's superconducting devices — **Emerald**, **Garnet** and **Sirius**.
+[IBM Quantum Platform](https://quantum.cloud.ibm.com/) is the cloud service that gives access to IBM's superconducting devices, the 156 qubit **Heron** processors (`ibm_fez`, `ibm_marrakesh`, `ibm_kingston`, ...).
 
-You need an account and an API token for the **Session 2** notebooks; Sessions 1 and 3 run fully on simulators and need none of this.
+You need an account, an API key and an instance for the **Session 2** notebooks; Sessions 1 and 3 run fully on simulators and need none of this. Even Session 2 can run without an account, see [Working without an account](#working-without-an-account).
 
 ### Create the account
 
-1. Go to **<https://resonance.iqm.tech/>** and sign up.
+1. Go to **<https://quantum.cloud.ibm.com/>** and sign up with an IBMid (or create one).
 2. Confirm your email and complete the profile details.
 
-![IQM Resonance sign-up](images/iqm-resonance-signup.png)
+![IBM Quantum Platform sign-up](images/ibm-quantum-signup.png)
 
-Once you are in, the dashboard lists the available devices, their status and your job history.
+### Create an Open Plan instance
 
-![IQM Resonance dashboard](images/iqm-resonance-dashboard.png)
+An _instance_ is what your jobs get billed against. The **Open Plan** is free and gives you 10 minutes of QPU time every 28 days.
 
-### Generate an API token
+1. From the dashboard, open **Instances** and click **Create instance**.
+2. Pick the **Open Plan**, give it a name and create it.
+3. Copy its **CRN** (a long string starting with `crn:v1:bluemix:...`). You will need it next to the API key.
 
-From the dashboard, open your account/profile area and generate a new API token.
+![Creating an Open Plan instance](images/ibm-quantum-instance.png)
 
-![Generating an API token](images/iqm-resonance-api-token.png)
+Once you are in, the dashboard lists the devices your instance can use, their status and queue, and your recent jobs.
 
-> **Copy it immediately.** The token is shown only once, at creation time. If you lose it, generate a new one.
+![IBM Quantum Platform dashboard](images/ibm-quantum-dashboard.png)
 
-### Use the token
+### Generate an API key
 
-The Session 2 notebooks read the token from the `IQM_TOKEN` environment variable, which
-is what `iqm-client` looks for. They prompt for it with `getpass` so nothing is written
-to disk:
+From the dashboard, find the **API key** panel and create a new key.
+
+![Generating an API key](images/ibm-quantum-api-key.png)
+
+> **Copy it immediately.** The key is shown only once, at creation time. If you lose it, delete it and create a new one.
+
+### Use the key
+
+The Session 2 notebooks read the key from the `QISKIT_IBM_TOKEN` environment variable and the instance from `QISKIT_IBM_INSTANCE`. If they are not set, the notebooks prompt for them with `getpass` so nothing is written to disk:
 
 ```python
 import os
 from getpass import getpass
 
-os.environ["IQM_TOKEN"] = getpass("Here goes your IQM API token:")
+os.environ["QISKIT_IBM_TOKEN"] = getpass("Here goes your IBM Quantum API key:")
+os.environ["QISKIT_IBM_INSTANCE"] = getpass("And your instance CRN (leave it empty to use any of yours):")
 ```
 
 Then the connection itself:
 
 ```python
-from iqm.qiskit_iqm import IQMProvider
+from qiskit_ibm_runtime import QiskitRuntimeService
 
-IQM_URL = "https://resonance.meetiqm.com/"
-QUANTUM_COMPUTER = "emerald"   # or "garnet", "sirius"
-
-provider = IQMProvider(IQM_URL, quantum_computer=QUANTUM_COMPUTER)
-backend = provider.get_backend()
+service = QiskitRuntimeService(
+    channel="ibm_quantum_platform",
+    token=os.environ["QISKIT_IBM_TOKEN"],
+    instance=os.environ.get("QISKIT_IBM_INSTANCE") or None,
+)
+backend = service.least_busy(operational=True, simulator=False)   # or service.backend("ibm_fez")
 print(f"Connected to : {backend.name}")
 ```
 
-If you would rather not retype it every session, export it in your shell before
-launching marimo:
+If you would rather not retype them every session, export both in your shell before launching marimo:
 
 ```bash
-export IQM_TOKEN="your-token-here"     # macOS / Linux
-$env:IQM_TOKEN = "your-token-here"     # Windows PowerShell
+# macOS / Linux
+export QISKIT_IBM_TOKEN="your-api-key-here"
+export QISKIT_IBM_INSTANCE="crn:v1:bluemix:..."
+uv run marimo edit
+
+# Windows PowerShell
+$env:QISKIT_IBM_TOKEN = "your-api-key-here"
+$env:QISKIT_IBM_INSTANCE = "crn:v1:bluemix:..."
 uv run marimo edit
 ```
 
-> **Never commit your token.** `.env` is git-ignored in this repo — keep it there or in your shell profile, and don't paste it into a notebook cell that gets saved.
+> **Never commit your API key.** `.env` is git-ignored in this repo, keep it there or in your shell profile, and don't paste it into a notebook cell that gets saved.
 
-### Watch your credits
+### Watch your QPU time
 
-Resonance access is metered in credits, and hardware jobs consume them per shot. Check the remaining balance in the dashboard before launching anything large.
+The Open Plan gives you **10 minutes of QPU time per rolling 28 day window**. That sounds small, but the circuits in this workshop take a few seconds each. What adds up is the fixed overhead per job, so the notebooks send several circuits in a single job whenever they can. Check the remaining time in the **Instances** page before launching anything large.
 
-![Remaining credits](images/iqm-resonance-credits.png)
+![Remaining QPU time](images/ibm-quantum-usage.png)
 
-Estimate the cost of a job first with IQM's
-[resource calculator](https://www.iqmacademy.com/qpu/resourceCalculator/). Practical
-rules of thumb: keep shot counts modest while debugging, run against `AerSimulator`
-until the circuit is correct, and only then switch the backend to hardware.
+Two more things to know about the Open Plan:
+
+- Jobs wait in a shared queue, which may take from seconds to hours depending on the device and the time of day. `least_busy` helps, and you can follow your jobs in the [workloads page](https://quantum.cloud.ibm.com/workloads).
+- Only _job_ and _batch_ execution modes are allowed. _Sessions_ (which reserve a device for you) are not, that is why notebook 2.3 hands sQUlearn a `Batch`.
+
+### Working without an account
+
+Every Session 2 notebook has a `USE_FAKE` flag at the top of the connection cells. Set it to `True` and the notebook runs against `FakeFez`, a local simulator that copies the topology, native gates and calibration data of the real `ibm_fez`. No account, no queue, no QPU time. A sensible workflow is to go through a notebook with `USE_FAKE = True` first and switch to the real device once everything works.
+
+Keep in mind that IBM's server side error mitigation options (dynamical decoupling, ZNE, TREX) are ignored when running locally.
 
 ## Troubleshooting
 
@@ -212,6 +235,10 @@ The notebooks fall back to the CPU `lightning.qubit` device.
 **Paths with spaces**: the session folders are `Session 1`, `Session 2`, `Session 3`.
 Always quote them: `uv run marimo edit "Session 2/2.1-Running on hardware.py"`.
 
-**`401` / authentication errors against Resonance**: the token is missing, expired, or stored under the wrong name. The variable must be `IQM_TOKEN`. Re-run the `getpass` cell and check the token is still valid in the dashboard.
+**`401` / authentication errors against IBM Quantum Platform**: the API key is missing, revoked, or stored under the wrong name. The variables must be `QISKIT_IBM_TOKEN` and `QISKIT_IBM_INSTANCE`. Restart the notebook kernel (the prompt only shows up when the variable is not set yet) and check the key still exists in the dashboard.
 
-**Colab fails on the Session 2.2 notebook**: known incompatibility between Colab's IPython version and IQM's libraries. Use molab or a local run instead.
+**Instance not found / no backends available**: the CRN is wrong or belongs to another account. Copy it again from the **Instances** page, or leave it empty and let the service use any instance you have access to.
+
+**Errors mentioning sessions on the Open Plan**: something tried to open a Runtime `Session`. Use job mode (`Sampler(mode=backend)`) or a `Batch` instead.
+
+**Jobs queued for a long time**: that's the shared Open Plan queue. Switch to `USE_FAKE = True` to keep going and come back for the results later, jobs keep running even if you close the notebook.

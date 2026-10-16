@@ -2,13 +2,13 @@
 
 This repository holds the exercises for the QML Summer School 2026.
 
-For a gentle introduction in this topic, you can find some meaningful information in my [QC Handbook](https://iraitzm.github.io/qc-handbook).
+> This is the **IBM variant** of the workshop (branch `variant/ibm`), Session 2 runs on IBM Quantum hardware.
 
-![qr](qr_code.svg)
+For a gentle introduction in this topic, you can find some meaningful information in my [QC Handbook](https://iraitzm.github.io/qc-handbook).
 
 > **New here?** [**Getting started**](GETTING_STARTED.md) walks through cloning the repo,
 > setting up the environment with `uv`, running the notebooks with `marimo`, and
-> registering in IQM Resonance. Or just click any badge below to run in the browser.
+> registering in IBM Quantum Platform. Or just click any badge below to run in the browser.
 
 ## Session 1
 
@@ -16,41 +16,39 @@ All about creating our first implementations for Quantum Computing and understan
 
 **Getting started** Learn how quantum computing is developed from scratch and why frameworks like Qiskit can really accelerate the development cycle.
 
-[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Session%201/1.1-Getting%20the%20basics.py)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IraitzM/qml-dpg-2026/blob/main/Session%201/1.1-Getting%20the%20basics.ipynb)
+[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/variant/ibm/Session%201/1.1-Getting%20the%20basics.py)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IraitzM/qml-dpg-2026/blob/variant/ibm/Session%201/1.1-Getting%20the%20basics.ipynb)
 
 **Observables and derivatives** One of the main aspects of quantum computing is being able to simulate systems. Evolve states and compute expectation values over observables. Quantum circuits can behave similar to neural networks, defining a parameterized function, computing its derivative and finding the right set of parameters minimizing an energy function. 
 
-[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Session%201/1.2-Going%20variational.py)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IraitzM/qml-dpg-2026/blob/main/Session%201/1.2-Going%20variational.ipynb)
+[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/variant/ibm/Session%201/1.2-Going%20variational.py)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IraitzM/qml-dpg-2026/blob/variant/ibm/Session%201/1.2-Going%20variational.ipynb)
 
 **Quantum Machine Learning** A gentle approach to how Quantum Computing evolved towards Quantum Machine Learning, the main categories for kernel based and neural networks inspired models and the challenges one will face defining those models.
 
-[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Session%201/1.3-QML.py)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IraitzM/qml-dpg-2026/blob/main/Session%201/1.3-QML.ipynb)
+[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/variant/ibm/Session%201/1.3-QML.py)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IraitzM/qml-dpg-2026/blob/variant/ibm/Session%201/1.3-QML.ipynb)
 
 ## Session 2
 
-Running on hardware using IQM Resonance provided chips Emerald, Garnet and Sirius.
+Running on hardware using the IBM Quantum Platform Open Plan and its Heron processors.
 
-**Getting started** First access and submission of circuits to IQM chips.
+**Getting started** First access and submission of circuits to IBM devices.
 
-[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Session%202/2.1-Running%20on%20hardware.py)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IraitzM/qml-dpg-2026/blob/main/Session%202/2.1-Running%20on%20hardware.ipynb)
+[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/variant/ibm/Session%202/2.1-Running%20on%20hardware.py)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IraitzM/qml-dpg-2026/blob/variant/ibm/Session%202/2.1-Running%20on%20hardware.ipynb)
 
 **Handling the noise** By means of error mitigation and cancellation techniques we can improve the results obtained when running on hardware and make it close to what the ideal device would do.
 
-> **Achtung**: Colab notebook may not work due to IPython version showing incompatibilities with IQM's libraries.
-
-[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Session%202/2.2-Handling%20noise.py)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IraitzM/qml-dpg-2026/blob/main/Session%202/2.2-Handling%20noise.ipynb)
+[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/variant/ibm/Session%202/2.2-Handling%20noise.py)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IraitzM/qml-dpg-2026/blob/variant/ibm/Session%202/2.2-Handling%20noise.ipynb)
 
 **QML on hardware** We can combine everything on a single notebook that launches QML workloads against the hardware.
 
-> **Achtung**: Watch for credits to be spent, IQM allows for a limited number of credits. Use https://www.iqmacademy.com/qpu/resourceCalculator/
+> **Achtung**: Watch your QPU time, the Open Plan gives you 10 minutes every 28 days. Run with `USE_FAKE = True` first to check everything works locally.
 
-[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Session%202/2.3-QML%20on%20hardware.py)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IraitzM/qml-dpg-2026/blob/main/Session%202/2.3-QML%20on%20hardware.ipynb)
+[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/variant/ibm/Session%202/2.3-QML%20on%20hardware.py)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IraitzM/qml-dpg-2026/blob/variant/ibm/Session%202/2.3-QML%20on%20hardware.ipynb)
 
 ## Session 3
 
@@ -58,15 +56,15 @@ How can we use Tensor Networks for better AI and QC. Well, let's explore what's 
 
 **Getting started** Getting familiar with Tensor Networks in Python. In this example we will get to implement some of the theoretical foundations already seen but also get to know how TNs are used in the domain of ML and QML.
 
-[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Session%203/3.1-Tensor%20networks.py)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IraitzM/qml-dpg-2026/blob/main/Session%203/3.1-Tensor%20networks.ipynb)
+[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/variant/ibm/Session%203/3.1-Tensor%20networks.py)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IraitzM/qml-dpg-2026/blob/variant/ibm/Session%203/3.1-Tensor%20networks.ipynb)
 
 **NNs as TNs** AI and QC have a common ground on matrix operations, they both share the need for efficient matrix multiplication. Given that TNs are meant exactly for this what if we could use this formalism for efficient NN construction.
 
-[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Session%203/3.2-Neural%20Networks%20as%20TNs.py)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IraitzM/qml-dpg-2026/blob/main/Session%203/3.2-Neural%20Networks%20as%20TNs.ipynb)
+[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/variant/ibm/Session%203/3.2-Neural%20Networks%20as%20TNs.py)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IraitzM/qml-dpg-2026/blob/variant/ibm/Session%203/3.2-Neural%20Networks%20as%20TNs.ipynb)
 
 **QNNs on TNs** Let's bring all together in this final notebook. We will create a hybrid (classical-quantum) neural network running on top of TN simulators making us of all the frameworks and interoperable pieces we have seen up to now.
 
-[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/main/Session%203/3.3-QML%20on%20TNs.py)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IraitzM/qml-dpg-2026/blob/main/Session%203/3.3-QML%20on%20TNs.ipynb)
+[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/IraitzM/qml-dpg-2026/blob/variant/ibm/Session%203/3.3-QML%20on%20TNs.py)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IraitzM/qml-dpg-2026/blob/variant/ibm/Session%203/3.3-QML%20on%20TNs.ipynb)
