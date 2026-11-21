@@ -566,7 +566,7 @@ def _(mo):
 
     These two matrices are actually the computation of the kernel $k(x_i,x_j)$ that are used to select the support vectors and then test against those.
 
-    ![mats](https://qiskit-community.github.io/qiskit-machine-learning/_images/tutorials_03_quantum_kernel_17_0.png)
+    ![mats](../images/tutorials_03_quantum_kernel_17_0.png)
     """)
     return
 
